@@ -1,0 +1,151 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Merriweather&family=Metrophobic&family=Noto+Sans&family=Roboto:wght@300&family=Rubik:wght@300&display=swap");
+
+.container {
+  background-color: #eff1f3;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.form_container {
+  background-color: white;
+  height: 400px;
+  width: 500px;
+  border-radius: 10px 10px 10px 10px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.mainbox {
+  display: flex;
+  align-items: center;
+  margin: 100px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 2px 2px #b6b6b6;
+}
+
+.photo-div {
+  height: 400px;
+  width: 320;
+}
+
+.photo {
+  height: 400px;
+  width: 320px;
+  border-radius: 10px 0px 0px 10px;
+}
+.mainbox h1 {
+  color: #3b3b3b;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  border-bottom: 1.5px solid #dddddd;
+  padding: 8px 8px;
+  color: white;
+  align-items: flex-start;
+  margin-left: 40px;
+  margin-right: 40px;
+  width: 300px;
+}
+
+input:focus {
+  outline: none;
+}
+
+input {
+  color: grey;
+  font-family: "Noto Sans";
+  font-size: medium;
+}
+
+.input-group input {
+  background: none;
+  border: none;
+  color: #b6b6b6;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: white;
+}
+
+.btn-login {
+  background: none;
+  padding: 20px;
+  font-size: 18px;
+  letter-spacing: 1px;
+  color: white;
+  cursor: pointer;
+  font-family: "Noto Sans";
+  text-align: center;
+  flex: 1;
+  border: 1px solid #545454;
+  border-radius: 10px;
+}
+
+.btn-login:hover {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background-color: teal;
+}
+
+.btn-login:focus {
+  outline: none;
+  border-radius: 10px;
+}
+
+.btn-div {
+  display: flex;
+  justify-content: center;
+  background-color: #545454;
+  border-radius: 10px;
+  width: 200px;
+}
+
+.email {
+  color: grey;
+  font-family: "Noto Sans";
+}
+
+::-webkit-input-placeholder {
+  color: grey;
+  font-family: "Noto Sans";
+  font-size: medium;
+}
+
+.bottom-btns {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 15px;
+  width: 90%;
+}
+
+.lbl {
+  text-align: center;
+  color: grey;
+  font-family: "Lato";
+  font-size: 15px;
+  outline: none;
+}
+
+.mainbox label:hover {
+  border-bottom: 1px solid grey;
+  cursor: pointer;
+}
+
+.form-style {
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
