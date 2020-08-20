@@ -3,6 +3,7 @@ import { Link, Redirect } from "react-router-dom";
 import "./LoginBox.css";
 import Navbar from "./Navbar";
 import flat from "../images/flat.jpg";
+import axios from "axios";
 
 const RegisterBox = () => {
   const [accoutCreated, setAccountCreated] = useState(false);
@@ -22,13 +23,37 @@ const RegisterBox = () => {
     e.preventDefault();
     console.log("SUBMIT");
     if (password === re_password) {
-      // signup(name, email, password, re_password);
+      signup(username, email, password, re_password);
       setAccountCreated(true);
     }
   };
-  // if (accoutCreated) {
-  //   return <Redirect to="/login" />;
-  // }
+  if (accoutCreated) {
+    return <Redirect to="/login" />;
+  }
+
+  const signup = (username, email, password, re_password) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const body = JSON.stringify({ username, email, password, re_password });
+
+    axios
+      .post("http://127.0.0.1:8000/auth/users/", body, config)
+      .then(function (response) {
+        // handle success
+        console.log(response);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .then(function () {
+        // always executed
+      });
+  };
 
   return (
     <div className="container">
