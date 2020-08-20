@@ -1,25 +1,67 @@
 import React, { useState } from "react";
-import { Link, Redirect } from "react-router-dom";
-import "./LoginBox.css";
+import { Redirect } from "react-router-dom";
+import axios from "axios";
+import Navbar from "./Navbar";
+import "./ActivateUser.css";
+import flat from "../images/flat.jpg";
+import MySlider from "./MySlider";
 
-const ActivateUser = ({ verify, match }) => {
+const ActivateUser = ({ match }) => {
   const [verified, setVerified] = useState(false);
 
-  const verifyAccount = (e) => {
-    e.preventDefault();
+  const verifyAccount = () => {
     const uid = match.params.uid;
     const token = match.params.token;
-    verify(uid, token);
     setVerified(true);
-    console.log("SUBMIT");
+
+    console.log(uid);
+    console.log(token);
+    verify(uid, token);
   };
 
+  const verify = (uid, token) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const body = JSON.stringify({ uid, token });
+
+    axios
+      .post("http://127.0.0.1:8000/auth/users/activation/", body, config)
+      .then(function (response) {
+        // handle success
+        console.log(response);
+        setVerified(true);
+      })
+      .catch(function (error) {
+        // handle error
+        setVerified(false);
+        console.log(error);
+      })
+      .then(function () {
+        // always executed
+      });
+  };
+  if (verified) {
+    return <Redirect to="/login" />;
+  }
+
   return (
-    <div className="mainbox">
-      <h1>Activate your account</h1>
-      <button onClick={verifyAccount} type="button" className="btn-login">
-        Activate
-      </button>
+    <div>
+      <Navbar></Navbar>
+      <div className="container">
+        <div className="mainbox">
+          <div className="photo-div">
+            <img src={flat} alt="Logo" className="photo" />
+          </div>
+          <div className="verification">
+            <h1>Activate your account</h1>
+            <MySlider verifyAccount={verifyAccount}></MySlider>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

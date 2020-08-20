@@ -20,8 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '2xg+60#dzbvhh=z1e^a5#-)ugimvqj&f=1z9)x+^1gpm(082rn'
-
+SECRET_KEY = os.environ.get('FLAT_FINDER_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -40,9 +39,13 @@ INSTALLED_APPS = [
     'user_auth',
     'rest_framework',
     'djoser',
+    'corsheaders',
+
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -57,7 +60,7 @@ ROOT_URLCONF = 'flat_finder.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'build')],       
+        'DIRS': [os.path.join(BASE_DIR, 'build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -147,19 +150,18 @@ DJOSER = {
     'USERNAME_RESET_CONFIRM_URL': 'email/reset/confirm/{uid}/{token}',
     'ACTIVATION_URL': 'activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
-    'SERIALIZERS':{
-        'user_create' : 'user_auth.serializers.UserCreateSerializer',
-        'user' : 'user_auth.serializers.UserCreateSerializer',
-        'user_delete' : 'user_auth.serializers.UserDeleteSerializer',
+    'SERIALIZERS': {
+        'user_create': 'user_auth.serializers.UserCreateSerializer',
+        'user': 'user_auth.serializers.UserCreateSerializer',
+        'user_delete': 'user_auth.serializers.UserDeleteSerializer',
     }
 }
 
 
-
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': {
-        'rest_framework.permissions.IsAuthenticated'
-    },
+    # 'DEFAULT_PERMISSION_CLASSES': {
+    #     'rest_framework.permissions.IsAuthenticated',
+    # },
 
 
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -168,7 +170,9 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-   'AUTH_HEADER_TYPES': ('JWT',),
+    'AUTH_HEADER_TYPES': ('JWT',),
 }
 
 AUTH_USER_MODEL = "user_auth.UserAccount"
+
+CORS_ORIGIN_ALLOW_ALL = True
