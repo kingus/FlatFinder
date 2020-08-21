@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
 import "./LoginBox.css";
 import Navbar from "./Navbar";
@@ -11,6 +11,7 @@ const LoginBox = () => {
     username: "",
     password: "",
   });
+  const [token, setToken] = useState();
 
   const { username, password } = formData;
 
@@ -31,7 +32,7 @@ const LoginBox = () => {
         "Content-Type": "application/json",
       },
     };
-
+    var token;
     const body = JSON.stringify({ username, password });
     console.log(body);
     axios
@@ -39,7 +40,11 @@ const LoginBox = () => {
       .then(function (response) {
         // handle success
         console.log(response);
-        console.log(response.data.access);
+        setToken(response.data.access);
+        console.log(token);
+        // verify();
+        localStorage.setItem("token", response.data.access);
+        localStorage.setItem("access", response.data.access);
       })
       .catch(function (error) {
         // handle error
@@ -48,6 +53,56 @@ const LoginBox = () => {
       .then(function () {
         // always executed
       });
+  };
+
+  const verify = () => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const body2 = '"{token": ' + token + "}";
+    console.log(body2);
+    axios
+      .post("http://localhost:8000/auth/jwt/verify/", body2, config)
+      .then(function (response) {
+        console.log("RESP:", response);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log("ERR", error);
+      })
+      .then(function () {
+        // always executed
+      });
+  };
+
+  useEffect(() => {
+    load_user();
+  }, [token]);
+
+  const load_user = () => {
+    console.log("FFFFFF");
+    if (localStorage.getItem("access")) {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `JWT ${localStorage.getItem("access")}`,
+        },
+      };
+      console.log("TTTYY");
+      try {
+        const res = axios.get(
+          "http://localhost:8000/auth/users/me/",
+
+          config
+        );
+        console.log("TYYY", res);
+      } catch (err) {
+        console.log("ERR", err);
+      }
+    } else {
+    }
   };
 
   return (

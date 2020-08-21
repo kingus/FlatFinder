@@ -159,9 +159,9 @@ DJOSER = {
 
 
 REST_FRAMEWORK = {
-    # 'DEFAULT_PERMISSION_CLASSES': {
-    #     'rest_framework.permissions.IsAuthenticated',
-    # },
+    'DEFAULT_PERMISSION_CLASSES': {
+        'rest_framework.permissions.IsAuthenticated',
+    },
 
 
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -176,3 +176,4 @@ SIMPLE_JWT = {
 AUTH_USER_MODEL = "user_auth.UserAccount"
 
 CORS_ORIGIN_ALLOW_ALL = True
+REST_USE_JWT = True

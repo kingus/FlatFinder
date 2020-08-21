@@ -5,6 +5,8 @@ from .models import UserAccount, Apartament
 from .serializers import UserCreateSerializer, ApartamentSerializer
 from rest_framework.response import Response
 from datetime import datetime
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import IsAuthenticated
 
 
 class UserView(APIView):
@@ -15,6 +17,7 @@ class UserView(APIView):
         return HttpResponse(serializer.data)
 
 
+@permission_classes((IsAuthenticated, ))
 class ApartamentView(APIView):
     def get(self, request):
 
