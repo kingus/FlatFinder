@@ -123,7 +123,8 @@ const LoginBox = () => {
 
             <div className="bottom-btns">
               <Link to="/signup">
-                <label className="lbl">Register</label>{" "}
+                <h5>Don't have an account? </h5>
+                <h6>Register</h6>
               </Link>
             </div>
           </div>

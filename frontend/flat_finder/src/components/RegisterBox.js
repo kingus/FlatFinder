@@ -60,9 +60,9 @@ const RegisterBox = () => {
     <div className="container">
       <Navbar></Navbar>
       <div className="page-container">
-        <div className="loginbox">
-          <div className="photo-div">
-            <img src={flat} alt="Logo" className="photo" />
+        <div className="registerbox">
+          <div className="photo-div-register">
+            <img src={flat} alt="Logo" className="photo-register" />
           </div>
           <div className="form_container">
             <h1>Sign up</h1>
@@ -116,7 +116,8 @@ const RegisterBox = () => {
 
             <div className="bottom-btns">
               <Link to="/login">
-                <label className="lbl">Login</label>{" "}
+                <h5>Already have an account? </h5>
+                <h6> Login</h6>
               </Link>
             </div>
           </div>
