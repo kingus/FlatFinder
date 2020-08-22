@@ -4,7 +4,7 @@ import "./LoginBox.css";
 import Navbar from "./Navbar";
 import flat from "../images/flat.jpg";
 import axios from "axios";
-
+import Footer from "./Footer";
 const RegisterBox = () => {
   const [accoutCreated, setAccountCreated] = useState(false);
   const [formData, setFormData] = useState({
@@ -27,6 +27,7 @@ const RegisterBox = () => {
       setAccountCreated(true);
     }
   };
+
   if (accoutCreated) {
     return <Redirect to="/login" />;
   }
@@ -58,68 +59,70 @@ const RegisterBox = () => {
   return (
     <div className="container">
       <Navbar></Navbar>
+      <div className="page-container">
+        <div className="loginbox">
+          <div className="photo-div">
+            <img src={flat} alt="Logo" className="photo" />
+          </div>
+          <div className="form_container">
+            <h1>Sign up</h1>
+            <form onSubmit={(e) => onSubmit(e)} className="form-style">
+              <div className="input-group">
+                <input
+                  type="username"
+                  name="username"
+                  className="login_input"
+                  placeholder="Username"
+                  value={username}
+                  onChange={(e) => onChange(e)}
+                ></input>
+              </div>
+              <div className="input-group">
+                <input
+                  type="email"
+                  name="email"
+                  value={email}
+                  className="login_input"
+                  placeholder="Email"
+                  onChange={(e) => onChange(e)}
+                ></input>
+              </div>
+              <div className="input-group">
+                <input
+                  type="password"
+                  name="password"
+                  value={password}
+                  className="login_input"
+                  placeholder="Password"
+                  onChange={(e) => onChange(e)}
+                ></input>
+              </div>
+              <div className="input-group">
+                <input
+                  type="password"
+                  name="re_password"
+                  className="login_input"
+                  placeholder="Repeat password"
+                  value={re_password}
+                  onChange={(e) => onChange(e)}
+                ></input>
+              </div>
+              <div className="btn-div">
+                <button className="btn-login" type="submit">
+                  Register
+                </button>
+              </div>
+            </form>
 
-      <div className="mainbox">
-        <div className="photo-div">
-          <img src={flat} alt="Logo" className="photo" />
-        </div>
-        <div className="form_container">
-          <h1>Sign up</h1>
-          <form onSubmit={(e) => onSubmit(e)} className="form-style">
-            <div className="input-group">
-              <input
-                type="username"
-                name="username"
-                className="login_input"
-                placeholder="Username"
-                value={username}
-                onChange={(e) => onChange(e)}
-              ></input>
+            <div className="bottom-btns">
+              <Link to="/login">
+                <label className="lbl">Login</label>{" "}
+              </Link>
             </div>
-            <div className="input-group">
-              <input
-                type="email"
-                name="email"
-                value={email}
-                className="login_input"
-                placeholder="Email"
-                onChange={(e) => onChange(e)}
-              ></input>
-            </div>
-            <div className="input-group">
-              <input
-                type="password"
-                name="password"
-                value={password}
-                className="login_input"
-                placeholder="Password"
-                onChange={(e) => onChange(e)}
-              ></input>
-            </div>
-            <div className="input-group">
-              <input
-                type="password"
-                name="re_password"
-                className="login_input"
-                placeholder="Repeat password"
-                value={re_password}
-                onChange={(e) => onChange(e)}
-              ></input>
-            </div>
-            <div className="btn-div">
-              <button className="btn-login" type="submit">
-                Register
-              </button>
-            </div>
-          </form>
-
-          <div className="bottom-btns">
-            <Link to="/login">
-              <label className="lbl">Login</label>{" "}
-            </Link>
           </div>
         </div>
       </div>
+      <Footer></Footer>
     </div>
   );
 };

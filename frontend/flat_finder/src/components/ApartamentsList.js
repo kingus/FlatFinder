@@ -3,17 +3,19 @@ import Navbar from "./Navbar";
 import "./Apartaments.css";
 import axios from "axios";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faHeart, faCoffee } from "@fortawesome/free-solid-svg-icons";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faRegularHeart } from "@fortawesome/free-regular-svg-icons";
 import Apartament from "./Apartament";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Redirect } from "react-router-dom";
 
 const AparamentsList = () => {
   const [apartaments, setApartaments] = useState([]);
   const [filtered_apartaments, setFilteredApartaments] = useState([]);
   const [search, setSearch] = useState("");
-  library.add(faHeart, faCoffee, faRegularHeart);
+  library.add(faHeart, faRegularHeart);
+
   const notify = (ifAdded) => {
     var notification = "";
     if (ifAdded) {
@@ -75,11 +77,15 @@ const AparamentsList = () => {
     );
   };
 
+  const handleLogOut = () => {
+    return <Redirect to="/login" />;
+  };
+
   return (
     <div>
       <ToastContainer />
       <div className="container">
-        <Navbar></Navbar>
+        <Navbar handleLogOut={handleLogOut}></Navbar>
         <input onChange={(e) => handleSearchChange(e.target.value)}></input>
         <button onClick={handleClickSearch}>SEARCH</button>
         <div className="apartaments_list">
