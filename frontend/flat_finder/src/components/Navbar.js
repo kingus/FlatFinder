@@ -24,11 +24,27 @@ const Navbar = (props) => {
         ]
       : []
   );
-
   const handleLogOut = () => {
     logOut();
     context.changeUserActivity();
   };
+
+  const [icons, setIcons] = useState(
+    context.isAuthenticated
+      ? [
+          {
+            icon: heart,
+            func: handleLogOut,
+            redirect: "#",
+          },
+          {
+            icon: logout,
+            func: handleLogOut,
+            redirect: "/login",
+          },
+        ]
+      : []
+  );
 
   return (
     <div className="navbar">
@@ -40,22 +56,24 @@ const Navbar = (props) => {
         {linksAuth.map((link) => {
           return (
             <Link to={link.path} key={uuid.v4()}>
-              <li>{link.name}</li>
+              <li className="">{link.name}</li>
             </Link>
           );
         })}
       </ul>
       <div className="icons-container">
-        <img src={heart} alt="Logo" className="icon" />
-
-        <Link to="/login">
-          <img
-            src={logout}
-            alt="Logo"
-            className="icon"
-            onClick={handleLogOut}
-          />
-        </Link>
+        {icons.map((icon) => {
+          return (
+            <Link to={icon.redirect} key={uuid.v4()}>
+              <img
+                src={icon.icon}
+                alt="Logo"
+                className="icon"
+                onClick={icon.func}
+              />
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

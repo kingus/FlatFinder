@@ -56,3 +56,12 @@
   position: absolute;
   right: 10px;
 }
+
+.navbar a {
+  text-decoration: none;
+  color: #545454;
+}
+.navbar a:hover {
+  text-decoration: none;
+  color: #616161;
+}
