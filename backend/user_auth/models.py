@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User, AbstractBaseUser, PermissionsMixin, BaseUserManager
 
+
 class UserAccountManager(BaseUserManager):
     def create_user(self, username, email, password):
         email = self.normalize_email(email)
@@ -25,8 +26,9 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.username
 
+
 class Apartament(models.Model):
-    apartament_id = models.TextField(default="")
+    apartament_id = models.TextField(default="", unique=True)
     place = models.TextField(default="")
     description = models.TextField(default="")
     price = models.FloatField(default=0.0)
@@ -45,3 +47,12 @@ class Apartament(models.Model):
 
     def __str__(self):
         return self.apartament_id
+
+
+class UsersApartaments(models.Model):
+    user = models.ForeignKey(UserAccount,  to_field='id',
+                             on_delete=models.CASCADE)
+    apartament = models.ForeignKey(
+        Apartament, to_field="apartament_id", on_delete=models.CASCADE)
+    is_favourite = models.BooleanField(default=False)
+    is_interesting = models.BooleanField(default=False)

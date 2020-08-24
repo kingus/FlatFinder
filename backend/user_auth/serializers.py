@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from djoser.serializers import CurrentPasswordSerializer, UserCreateSerializer
 from django.contrib.auth import get_user_model
-from .models import Apartament
+from .models import Apartament, UserAccount, UsersApartaments
 User = get_user_model()
 
 
@@ -9,6 +9,12 @@ class UserCreateSerializer(UserCreateSerializer):
     class Meta(UserCreateSerializer.Meta):
         model = User
         fields = ('id', 'email', 'username', 'password')
+
+
+class UserSerializer(serializers.Serializer):
+    class Meta():
+        model = UserAccount
+        fields = ('id')
 
 
 class ApartamentSerializer(serializers.Serializer):
@@ -26,3 +32,23 @@ class ApartamentSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         return Apartament.objects.create(**validated_data)
+
+
+class UsersApartamentSerializer(serializers.Serializer):
+    class Meta:
+        model = UsersApartaments
+        fields = ('user', 'apartament', 'is_favourite', 'is_interested')
+
+    # user = UserSerializer(many=False, read_only=True)
+    # user_id = serializers.IntegerField(write_only=True)
+    # apartament = serializers.PrimaryKeyRelatedField(
+    #      read_only=False, queryset=Apartament.objects.all())
+    is_favourite = serializers.BooleanField()
+    is_interesting = serializers.BooleanField()
+
+    #    class Meta:
+    #         model = UsersApartaments
+    #         fields = '__all__'
+
+    #     def create(self, validated_data):
+    #         return UsersApartaments.objects.create(**validated_data)

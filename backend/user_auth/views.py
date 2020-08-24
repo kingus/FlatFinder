@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework.views import APIView, View
-from .models import UserAccount, Apartament
-from .serializers import UserCreateSerializer, ApartamentSerializer
+from .models import UserAccount, Apartament, UsersApartaments
+from .serializers import UserCreateSerializer, ApartamentSerializer, UsersApartamentSerializer
 from rest_framework.response import Response
 from datetime import datetime
 from rest_framework.decorators import permission_classes
@@ -17,7 +17,7 @@ class UserView(APIView):
         return HttpResponse(serializer.data)
 
 
-@permission_classes((IsAuthenticated, ))
+# @permission_classes((IsAuthenticated, ))
 class ApartamentView(APIView):
     def get(self, request):
 
@@ -67,3 +67,44 @@ class ApartamentView(APIView):
     def delete(self, request, apartament_id):
         Apartament.objects.filter(apartament_id=apartament_id).delete()
         return Response({"success": "Apartament '{}' has been removed successfully".format(apartament_id)})
+
+
+class UsersApartamentsView(APIView):
+
+    def post(self, request):
+        users_apartament = request.data
+        ap_id = users_apartament['apartament']
+        user = users_apartament['user']
+        print("SSSSSSSS", user)
+        # is_favourite = users_apartament['is_favourite']
+        # is_interesting = users_apartament['is_interesting']
+        # apartament = Apartament.objects.get(apartament_id=ap_id)
+        # user = UserAccount.objects.get(username=user)
+        # print()
+        # b = UsersApartaments(user=user, apartament=apartament,
+        #                      is_favourite=is_favourite, is_interesting=is_interesting)
+        # b.save(apartament)
+
+        # serializer = UsersApartamentSerializer(data=UsersApartaments)
+        # if serializer.is_valid(raise_exception=True):
+        #     users_apartaments_saved = serializer.save()
+        return Response({"success": "Apartament '{}' created successfully".format("SSS")})
+
+    def get(self, request):
+        data = request.data
+        users = UserAccount.objects.all()
+        for i in users:
+            print(i.username)
+        user = request.GET.get('user', '')
+
+        user = UserAccount.objects.get(username=user)
+        print(user)
+        apartaments = UsersApartaments.objects.filter(
+            user=user).values('apartament')
+
+        id_list = list()
+        for i in apartaments:
+            id_list.append(i['apartament'])
+        apartament = Apartament.objects.filter(apartament_id__in=id_list)
+        serializer = ApartamentSerializer(apartament, many=True)
+        return Response({"apartaments": serializer.data})
