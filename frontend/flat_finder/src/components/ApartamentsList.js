@@ -33,15 +33,15 @@ const AparamentsList = () => {
     });
   };
   const getApartaments = () => {
+    const body = JSON.stringify({ user: "kinga999" });
+
     const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `JWT ${localStorage.getItem("access")}`,
-      },
+      headers: { "Content-Type": "application/json" },
+      data: body,
     };
 
     axios
-      .get("http://127.0.0.1:8000/apartament", config)
+      .get("http://127.0.0.1:8000/users-apartaments?user=kinga999", config)
       .then(function (response) {
         // handle success
         setApartaments(response.data.apartaments);
@@ -81,6 +81,8 @@ const AparamentsList = () => {
     return <Redirect to="/login" />;
   };
 
+  const refreshData = () => {};
+
   return (
     <div>
       <ToastContainer />
@@ -88,6 +90,8 @@ const AparamentsList = () => {
         <Navbar handleLogOut={handleLogOut}></Navbar>
         <input onChange={(e) => handleSearchChange(e.target.value)}></input>
         <button onClick={handleClickSearch}>SEARCH</button>
+        <button onClick={refreshData}>REFRESH DATA</button>
+
         <div className="apartaments_list">
           {filtered_apartaments.map((apartament) => {
             return (
@@ -101,6 +105,7 @@ const AparamentsList = () => {
                 source={apartament.source}
                 offer_url={apartament.offer_url}
                 rooms={apartament.rooms}
+                apa={apartament.apartament_id}
                 notify={notify}
               />
             );

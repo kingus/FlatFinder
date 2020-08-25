@@ -39,6 +39,7 @@ const Apartament = (props) => {
           <h3>Powierzchnia: {props.area}</h3>
           <h3>Portal: {props.source}</h3>
           <h3>Pokoje: {props.rooms}</h3>
+          <h3>Pokoje: {props.apa}</h3>
         </div>
         <div className="icon">
           {/* <FontAwesomeIcon
