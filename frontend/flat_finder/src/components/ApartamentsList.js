@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
+import SearchBar from "./SearchBar";
 import "./Apartaments.css";
 import axios from "axios";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { faHeart as faRegularHeart } from "@fortawesome/free-regular-svg-icons";
+import { faSearch, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import Apartament from "./Apartament";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Redirect } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const AparamentsList = () => {
   const [apartaments, setApartaments] = useState([]);
   const [filtered_apartaments, setFilteredApartaments] = useState([]);
-  const [search, setSearch] = useState("");
-  library.add(faHeart, faRegularHeart);
+  library.add(faSearch, faPlus, faMinus);
 
   const notify = (ifAdded) => {
     var notification = "";
@@ -63,16 +63,25 @@ const AparamentsList = () => {
     getApartaments();
   }, []);
 
-  const handleSearchChange = (e) => {
-    setSearch(e);
-  };
-
-  const handleClickSearch = () => {
+  const handleClickSearch = (searchDescription, area, price) => {
+    console.log("FILTER");
     setFilteredApartaments(
       apartaments.filter((apartament) => {
-        return apartament.description
-          .toLowerCase()
-          .includes(search.toLowerCase());
+        if (
+          apartament.description
+            .toLowerCase()
+            .includes(searchDescription.toLowerCase()) &&
+          area.min <= apartament.area &&
+          apartament.area <= area.max
+          // &&
+          // price.min <= apartament.price &&
+          // apartament.price <= price.max
+        ) {
+          console.log(price);
+          console.log(apartament.price);
+
+          return apartament;
+        }
       })
     );
   };
@@ -88,8 +97,7 @@ const AparamentsList = () => {
       <ToastContainer />
       <div className="container">
         <Navbar handleLogOut={handleLogOut}></Navbar>
-        <input onChange={(e) => handleSearchChange(e.target.value)}></input>
-        <button onClick={handleClickSearch}>SEARCH</button>
+        <SearchBar handleClickSearch={handleClickSearch}></SearchBar>
         <button onClick={refreshData}>REFRESH DATA</button>
 
         <div className="apartaments_list">

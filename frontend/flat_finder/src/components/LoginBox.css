@@ -198,6 +198,7 @@ input:-webkit-autofill:active {
   text-decoration: underline;
   margin: 0;
   font-weight: 400;
+  margin-left: 3px;
 }
 
 .lbl {
@@ -234,3 +235,4 @@ input:-webkit-autofill:active {
 .login_input {
   width: 300px;
 }
+

@@ -13,6 +13,7 @@ const LoginBox = () => {
     username: "",
     password: "",
   });
+
   const [token, setToken] = useState();
   const { username, password } = formData;
   const context = useContext(AuthContext);
@@ -123,7 +124,7 @@ const LoginBox = () => {
 
             <div className="bottom-btns">
               <Link to="/signup">
-                <h5>Don't have an account? </h5>
+                <h5>Don't have an account?</h5>
                 <h6>Register</h6>
               </Link>
             </div>
