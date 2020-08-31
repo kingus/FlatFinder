@@ -63,7 +63,7 @@ const AparamentsList = () => {
     getApartaments();
   }, []);
 
-  const handleClickSearch = (searchDescription, area, price) => {
+  const handleClickSearch = (searchDescription, area, price, district) => {
     var area_min = area.min;
     var area_max = area.max;
     var price_min = price.min;
@@ -72,20 +72,25 @@ const AparamentsList = () => {
     if (!(area_min || area_max)) {
       area_min = 0;
       area_max = 99999999;
-    } else if (!(price_min || price_max)) {
+    }
+    if (!(price_min || price_max)) {
       price_min = 0;
       price_max = 99999999;
     }
+
     setFilteredApartaments(
       apartaments.filter((apartament) => {
+        console.log(apartament.district);
+
         if (
           apartament.description
             .toLowerCase()
             .includes(searchDescription.toLowerCase()) &&
           area_min <= apartament.area &&
           apartament.area <= area_max &&
-          price.min <= apartament.price &&
-          apartament.price <= price.max
+          price_min <= apartament.price &&
+          apartament.price <= price_max &&
+          apartament.place.toLowerCase().includes(district.toLowerCase())
         ) {
           return apartament;
         }
