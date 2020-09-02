@@ -26,7 +26,7 @@ const Navbar = (props) => {
   );
   const handleLogOut = () => {
     logOut();
-    context.changeUserActivity();
+    context.changeUserActivity(false);
   };
 
   const [icons, setIcons] = useState(

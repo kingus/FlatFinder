@@ -72,33 +72,46 @@ class ApartamentView(APIView):
 class UsersApartamentsView(APIView):
 
     def post(self, request):
-        users_apartament = request.data
-        ap_id = users_apartament['apartament']
-        user = users_apartament['user']
-        print("SSSSSSSS", user)
+        username = request.GET.get('user', '')
+
+        # users_apartament = request.data
+        # ap_id = users_apartament['apartament']
+        # user = users_apartament['user']
+        # print("SSSSSSSS", user)
         # is_favourite = users_apartament['is_favourite']
         # is_interesting = users_apartament['is_interesting']
         # apartament = Apartament.objects.get(apartament_id=ap_id)
-        # user = UserAccount.objects.get(username=user)
-        # print()
-        # b = UsersApartaments(user=user, apartament=apartament,
-        #                      is_favourite=is_favourite, is_interesting=is_interesting)
-        # b.save(apartament)
+        user_object = UserAccount.objects.get(username=username)
+        print(user_object)
+        apartaments = UsersApartaments.objects.filter(
+            user=user_object).values('apartament')
 
-        # serializer = UsersApartamentSerializer(data=UsersApartaments)
-        # if serializer.is_valid(raise_exception=True):
-        #     users_apartaments_saved = serializer.save()
+        id_list = list()
+        for i in apartaments:
+            id_list.append(i['apartament'])
+        print(id_list)
+        all_apartaments = Apartament.objects.all()
+        print(all_apartaments)
+        is_interesting = True
+        is_favourite = False
+
+        for apartament in all_apartaments:
+            if apartament.apartament_id not in id_list:
+
+                saved_apartament = UsersApartaments(user=user_object, apartament=apartament,
+                                                    is_favourite=is_favourite, is_interesting=is_interesting)
+                saved_apartament.save(apartament)
+
         return Response({"success": "Apartament '{}' created successfully".format("SSS")})
 
     def get(self, request):
         data = request.data
         users = UserAccount.objects.all()
-        for i in users:
-            print(i.username)
-        user = request.GET.get('user', '')
+        username = request.GET.get('user', '')
 
-        user = UserAccount.objects.get(username=user)
-        print(user)
+        user = UserAccount.objects.get(username=username)
+        print(username)
+        print("CHECK")
         apartaments = UsersApartaments.objects.filter(
             user=user).values('apartament')
 

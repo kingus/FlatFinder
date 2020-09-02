@@ -8,7 +8,6 @@ import { AuthContext } from "../contexts/AuthContext";
 import Footer from "./Footer";
 
 const LoginBox = () => {
-  // const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -23,19 +22,15 @@ const LoginBox = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log("SUBMIT");
     login(username, password);
   };
 
   const login = (username, password) => {
-    console.log(username);
-    console.log(password);
     const config = {
       headers: {
         "Content-Type": "application/json",
       },
     };
-    var token;
     const body = JSON.stringify({ username, password });
     axios
       .post("http://localhost:8000/auth/jwt/create/", body, config)
@@ -50,16 +45,13 @@ const LoginBox = () => {
         // handle error
         console.log(error);
       })
-      .then(function () {
-        // always executed
-      });
+      .then(function () {});
+    load_user();
+    console.log(context.isAuthenticated);
   };
 
-  useEffect(() => {
-    load_user();
-  }, [token]);
-
   const load_user = () => {
+    console.log("LOAD");
     if (localStorage.getItem("access")) {
       const config = {
         headers: {
@@ -73,14 +65,16 @@ const LoginBox = () => {
 
           config
         );
-        context.changeUserActivity();
-        // setIsAuthenticated(true);
+        context.changeUserActivity(true);
+        console.log("TY", context.isAuthenticated);
+        context.changeUsername(username);
+        console.log(res);
       } catch (err) {}
-    } else {
     }
   };
 
   if (context.isAuthenticated) {
+    console.log(context.isAuthenticated);
     return <Redirect to="/apartaments" />;
   }
 

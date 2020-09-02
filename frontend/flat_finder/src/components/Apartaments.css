@@ -88,3 +88,19 @@ h2 {
 
 .footer-div {
 }
+
+.refresh:hover {
+  cursor: pointer;
+  color: #8f8f8f;
+}
+.refresh {
+  width: 75%;
+  color: #6e6e6e;
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 30px;
+}
+.refresh:active {
+  cursor: pointer;
+  color: #7f7f7f;
+}

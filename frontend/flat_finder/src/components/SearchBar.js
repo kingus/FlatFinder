@@ -79,7 +79,7 @@ const SearchBar = (props) => {
             >
               <FontAwesomeIcon
                 icon={["fa", "minus"]}
-                size="xs"
+                style={{ fontSize: "0.5em" }}
                 color="#dddddd"
               />
             </div>
@@ -93,8 +93,8 @@ const SearchBar = (props) => {
             >
               <FontAwesomeIcon
                 icon={["fa", "plus"]}
-                size="xs"
                 color="#dddddd"
+                style={{ fontSize: "0.5em" }}
               />
             </div>
             <div
@@ -237,7 +237,7 @@ const SearchBar = (props) => {
               }}
             >
               {districtsList.map((district) => {
-                return <option>{district}</option>;
+                return <option key={district}>{district}</option>;
               })}
             </select>
           </div>
@@ -246,7 +246,7 @@ const SearchBar = (props) => {
       <div
         className="search-button"
         onClick={() =>
-          props.handleClickSearch(description, area, price, district)
+          props.handleClickSearch(description, area, price, district, pricePerM)
         }
       >
         <FontAwesomeIcon icon={["fa", "search"]} size="xs" color="white" />

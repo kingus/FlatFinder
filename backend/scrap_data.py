@@ -182,11 +182,10 @@ def save_apartaments(url_api, url_list):
     print(payload)
     response = requests.request("PUT", url_api, headers=headers, data=payload)
     print(response.status_code)
-    print("TAK TU SIĘ WYWALIŁO")
     # new_apartaments = response.json()
     # new_apartaments_list = list()
 
-    # return new_apartaments["new_apartaments_list"]
+    return new_apartaments["new_apartaments_list"]
 
 
 def main():
@@ -197,22 +196,6 @@ def main():
     get_otodom_data()
     run_gumtree_data(url_list)
     new_apartaments_list = save_apartaments(url_api, url_list)
-    offers_number = len(new_apartaments_list)
-
-    message = "Znaleziono nowe oferty mieszkań. Liczba znalezionych ofert: " + \
-        str(offers_number) + "\n\n"
-
-    new_apartaments_list.sort(key=lambda x: x['price_per_m'])
-
-    for apartament in new_apartaments_list:
-        ap = Apartament.from_json(apartament)
-        message = message + ap.print_apartament_str()
-
-    if offers_number > 0:
-        sender_email = os.environ.get('EMAIL_ADDRESS_TEST')
-        password = os.environ.get('EMAIL_PASS_TEST')
-        rec_email = os.environ.get('EMAIL_RECEIVER')
-        send_email(sender_email, rec_email, password, message, "[FLAT-FINDER]")
 
 
 if __name__ == "__main__":
