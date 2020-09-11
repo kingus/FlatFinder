@@ -96,14 +96,14 @@ const AparamentsList = () => {
       price_min = 0;
       price_max = 99999999;
     }
-    if (!(price_min || price_max)) {
+    if (!(price_per_m_min || price_per_m_max)) {
       price_per_m_min = 0;
       price_per_m_max = 99999999;
     }
 
     setFilteredApartaments(
       apartaments.filter((apartament) => {
-        console.log("TYYYY", apartament.pricePerM);
+        console.log("TYYYY", apartament.price_per_m);
         if (
           apartament.description
             .toLowerCase()
@@ -112,8 +112,8 @@ const AparamentsList = () => {
           apartament.area <= area_max &&
           price_min <= apartament.price &&
           apartament.price <= price_max &&
-          price_per_m_min <= apartament.pricePerM &&
-          apartament.pricePerM <= price_per_m_max &&
+          price_per_m_min <= apartament.price_per_m &&
+          apartament.price_per_m <= price_per_m_max &&
           apartament.place.toLowerCase().includes(district.toLowerCase())
         ) {
           return apartament;
@@ -155,6 +155,7 @@ const AparamentsList = () => {
         </div>
         <div className="apartaments_list">
           {filtered_apartaments.map((apartament) => {
+            console.log(apartament.is_favourite);
             return (
               <Apartament
                 key={apartament.apartament_id}
@@ -166,7 +167,7 @@ const AparamentsList = () => {
                 source={apartament.source}
                 offer_url={apartament.offer_url}
                 rooms={apartament.rooms}
-                apa={apartament.apartament_id}
+                is_favourite={apartament.is_favourite}
                 notify={notify}
               />
             );

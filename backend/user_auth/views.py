@@ -105,6 +105,7 @@ class UsersApartamentsView(APIView):
         return Response({"success": "Apartament '{}' created successfully".format("SSS")})
 
     def get(self, request):
+
         data = request.data
         users = UserAccount.objects.all()
         username = request.GET.get('user', '')
@@ -112,12 +113,23 @@ class UsersApartamentsView(APIView):
         user = UserAccount.objects.get(username=username)
         print(username)
         print("CHECK")
+        # apartaments = UsersApartaments.objects.filter(
+        #     user=user).values('apartament')
         apartaments = UsersApartaments.objects.filter(
-            user=user).values('apartament')
+            user=user)
 
         id_list = list()
+        is_favourite_list = list()
+        is_favourite_dict = dict()
         for i in apartaments:
-            id_list.append(i['apartament'])
+            # id_list.append(i['apartament'])
+            print(i.apartament_id)
+            print(i.is_favourite)
+            id_list.append(i.apartament_id)
+            is_favourite_list.append(i.is_favourite)
+            is_favourite_dict[i.apartament_id] = i.is_favourite
+
         apartament = Apartament.objects.filter(apartament_id__in=id_list)
-        serializer = ApartamentSerializer(apartament, many=True)
+        serializer = UsersApartamentSerializer(apartament, many=True, context={
+                                               'is_favourite': is_favourite_dict})
         return Response({"apartaments": serializer.data})

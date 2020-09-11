@@ -46,7 +46,7 @@ class Apartament(models.Model):
         self.save()
 
     def __str__(self):
-        return self.apartament_id
+        return self.area
 
 
 class UsersApartaments(models.Model):

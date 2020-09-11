@@ -7,8 +7,8 @@ import { faHeart as faRegularHeart } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Apartament = (props) => {
-  const [isFavourite, setIsFavourite] = useState(true);
-  const [heart, setHeart] = useState("#b6b6b6");
+  const [isFavourite, setIsFavourite] = useState(props.is_favourite);
+  const [heart, setHeart] = useState(isFavourite ? "pink" : "#b6b6b6");
   library.add(faHeart, faRegularHeart);
 
   const heartHandler = () => {
@@ -41,12 +41,6 @@ const Apartament = (props) => {
           <h3>Pokoje: {props.rooms}</h3>
         </div>
         <div className="icon">
-          {/* <FontAwesomeIcon
-            icon="heart"
-            color={heart}
-            size="2x"
-            onClick={heartHandler}
-          /> */}
           <FontAwesomeIcon
             icon={["far", "heart"]}
             color={heart}
