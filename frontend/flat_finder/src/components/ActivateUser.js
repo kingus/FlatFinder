@@ -49,10 +49,10 @@ const ActivateUser = ({ match }) => {
   }
 
   return (
-    <div>
+    <div className="container">
       <Navbar></Navbar>
-      <div className="container">
-        <div className="mainbox">
+      <div className="page-container">
+        <div className="activatebox">
           <div className="photo-div">
             <img src={flat} alt="Logo" className="photo" />
           </div>

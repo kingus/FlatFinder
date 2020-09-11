@@ -33,6 +33,21 @@
   align-items: center;
   margin-top: 100px;
 }
+.activatebox {
+  display: flex;
+  width: 650px;
+  height: 400px;
+  box-shadow: 1px 1px 2px 2px #b6b6b6;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  background-color: white;
+}
+
+.activatebox h1 {
+  color: #3b3b3b;
+}
 .registerbox {
   display: flex;
   width: 650px;
@@ -235,4 +250,3 @@ input:-webkit-autofill:active {
 .login_input {
   width: 300px;
 }
-
