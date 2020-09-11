@@ -11,13 +11,16 @@ The frontend is developed in React JS.
 ## How does it look like?
 
 ### Login page
-![alt text](https://github.com/kingus/FlatFinder/blob/master/flatfinder_screen1)
+![alt text](https://github.com/kingus/FlatFinder/blob/develop/screens/flatfinder_screen1)
 
 ### Register page
-![alt text](https://github.com/kingus/FlatFinder/blob/master/flatfinder_screen2.png)
+![alt text](https://github.com/kingus/FlatFinder/blob/develop/screens/flatfinder_screen2.png)
+
+### Activate account
+![alt text](https://github.com/kingus/FlatFinder/blob/develop/screens/flatfinder_screen5.png)
 
 ### Apartaments
-![alt text](https://github.com/kingus/FlatFinder/blob/develop/flat_finder_screen4.png)
+![alt text](https://github.com/kingus/FlatFinder/blob/develop/screens/flatfinder_screen3.png)
 
 
 ###### Photo used in the app was found on https://pl.pinterest.com/pin/580119995733039610 
